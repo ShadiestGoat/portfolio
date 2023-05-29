@@ -9,13 +9,21 @@ export const load = (async ({ fetch }) => {
         }
     })
 
-    const resp = await fetch(req)
-    if (resp.status != 200) {
-        throw error(501, "Couldn't load data ://")
+    let respB: langs
+
+    try {
+        const resp = await fetch(req)
+        if (resp.status != 200) {
+            throw error(501, "Couldn't load data ://")
+        }
+
+        respB = await resp.json()
+    } catch (err) {
+        console.error(err)
+        throw error(501, err as string)
     }
-	const respB = await resp.json()
     
 	return {
-        langs: respB as langs
+        langs: respB
 	};
 }) satisfies ServerLoad;

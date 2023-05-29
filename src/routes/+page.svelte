@@ -225,6 +225,10 @@
         margin-bottom: 0.5vh;
     }
 
+    #portfolio > .col {
+        width: 100vw;
+    }
+
     .col {
         flex: 1 1 auto;
     }
@@ -254,8 +258,8 @@
         grid-template: 1/1;
         min-height: 100vh;
         border-bottom: $border-size solid $border-color;
-        scroll-snap-align: start;
         padding-top: 4vh;
+        width: 100vw;
     }
 
     .border-0 {

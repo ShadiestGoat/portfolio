@@ -76,7 +76,8 @@
                     class="tag">
 
                     <h3>{tag}</h3>
-                    <i title={tag} class={icons[tag]} />
+
+                    <i title={tag} class={icons[tag] + " hide-if-small"} />
                 </button>
             {/each}
         </div>
@@ -91,7 +92,7 @@
                     <div class="row heading">
                         <h2>{proj.name}</h2>
                     </div>
-                    <div class="row description">
+                    <div class="row description wrap-words">
                         <p>{proj.description}</p>
                     </div>
                 </div>
@@ -209,6 +210,17 @@
                 transform: scale(1.05);
                 background-color: $purple-7;
             }
+        }
+    }
+
+
+    @media only screen and (max-width: 600px) {
+        .hide-if-small {
+            display: none;
+        }
+
+        .tag {
+            padding: 4px;
         }
     }
 

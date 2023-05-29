@@ -8,16 +8,4 @@
 
 <Head />
 
-<main>
-	<slot />
-</main>
-
-<style lang="scss">
-	main {
-		// scroll-snap-align: st;
-		scroll-snap-type: y proximity;
-		height: 100vh;
-		overflow-y: auto;
-		scroll-behavior: smooth;
-	}
-</style>
+<slot />
