@@ -8,6 +8,7 @@
 	import type { PageData } from "./$types";
 	import Portfolio from "$lib/portfolio.svelte";
 	import ContactIcon from "$lib/contactIcon.svelte";
+	import Particles from "$lib/particles.svelte";
 
     const langList = [
         "FullStack",
@@ -84,6 +85,8 @@
     
     let hoveredTag = ""
 </script>
+
+<Particles />
 
 <section id="intro">
     <div class="own-info">
