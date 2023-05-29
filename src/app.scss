@@ -1,0 +1,110 @@
+/* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
+$scrollbar-bg: var(--scrollbar, $gray-10);
+
+:root {
+	background-color: $bg;
+	font-size: clamp(12px, 2.2vw, 18px);
+}
+
+* {
+	scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+	width: 12px;
+}
+  
+*::-webkit-scrollbar-track {
+	background: $scrollbar-bg;
+}
+  
+*::-webkit-scrollbar-thumb {
+	background-color: $green-1;
+	border-radius: 20px;
+	border: 3px solid $scrollbar-bg;
+}
+
+.wrap-words {
+	word-break: break-word;
+	white-space: break-spaces;
+}
+
+body {
+	margin: 0;
+}
+
+*,
+:after,
+:before {
+	box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $primary;
+	margin: 0;
+	margin-bottom: 0;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1.1;
+	font-family: 'Roboto';
+}
+
+h1 {
+	color: $green-1;
+}
+
+h2 {
+	color: $blue-2;
+}
+
+i {
+	color: $primary;
+}
+
+::selection {
+	color: $primary;
+	background: $purple-7;
+}
+
+input,
+textarea {
+	border: none;
+	outline: none;
+	color: $primary;
+	font-family: 'Roboto';
+	font-weight: bolder;
+}
+
+a {
+	text-decoration: none;
+	color: $info;
+}
+
+a, .hover-border {
+	background: linear-gradient(var(--hover-color, currentColor) 0 0) bottom /var(--d, 0) 3px no-repeat;
+	transition: 0.5s;
+
+	&:hover, &.is-hovering {
+		--d: 100%;
+	}
+}
+
+.lined {
+	white-space: pre-line;
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
