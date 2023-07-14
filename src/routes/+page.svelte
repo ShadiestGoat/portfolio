@@ -226,7 +226,7 @@
     }
 
     #portfolio > .col {
-        width: 100vw;
+        width: 100%;
     }
 
     .col {
@@ -259,7 +259,7 @@
         min-height: 100vh;
         border-bottom: $border-size solid $border-color;
         padding-top: 4vh;
-        width: 100vw;
+        width: 100%;
     }
 
     .border-0 {
