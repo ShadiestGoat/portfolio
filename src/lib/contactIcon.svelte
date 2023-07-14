@@ -23,12 +23,15 @@
 </svelte:element>
 
 <style lang="scss">
+    $trans-time: 0.25s;
+
     .ico-wrapper {
         font-size: 5rem;
         text-align: center;
+        transition: $trans-time;
 
         i {
-            transition: 0.25s;
+            transition: $trans-time;
         }
     }
 
@@ -40,15 +43,14 @@
         border: $frame;
         padding: 2vh 2vw;
         border-radius: 10px;
-        transition: 0.25s;
+        transition: $trans-time;
         cursor: pointer;
         color: $info;
-
         background: $bg;
 
         &:hover {
             transform: scale(1.1);
-            padding: 1vh 1vw;
+            padding: 1.5vh 1.5vw;
 
             .ico-wrapper i {
                 color: $purple-1;
