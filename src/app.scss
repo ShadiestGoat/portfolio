@@ -87,11 +87,13 @@ a {
 }
 
 a, .hover-border {
-	background: linear-gradient(var(--hover-color, currentColor) 0 0) bottom /var(--d, 0) 3px no-repeat;
-	transition: 0.5s;
-
-	&:hover, &.is-hovering {
-		--d: 100%;
+	&:not(.no-hover) {
+		background: linear-gradient(var(--hover-color, currentColor) 0 0) bottom /var(--d, 0) 3px no-repeat;
+		transition: 0.5s;
+	
+		&:hover, &.is-hovering, &:focus-visible {
+			--d: 100%;
+		}
 	}
 }
 
