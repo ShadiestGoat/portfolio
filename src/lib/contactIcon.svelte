@@ -47,8 +47,9 @@
         cursor: pointer;
         color: $info;
         background: $bg;
+        outline: none;
 
-        &:hover {
+        &:hover, &:focus-visible {
             transform: scale(1.1);
             padding: 1.5vh 1.5vw;
 

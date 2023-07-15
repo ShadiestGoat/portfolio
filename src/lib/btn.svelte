@@ -62,7 +62,7 @@
     @each $name, $col in $colors {        
         .#{$name} {
             background-color: list.nth($col, 1);
-            &:hover {
+            &:hover, &:focus-visible {
                 background-color: list.nth($col, 2);
 
                 h2 {
