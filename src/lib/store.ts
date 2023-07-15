@@ -3,7 +3,7 @@ export type project = {
     langs:       language[]
     name:        string,
     description: string,
-    link?:       string,
+    links?:       string[],
     coolness:    number,
 }
 
@@ -92,7 +92,7 @@ export const projects: project[] = [
         description: "TypeScript-based project that allows new developers to integrate with an existing game system through a REST API. It serves as an example implementation of the API through a Discord bot",
         tags: ["Backend", "Discord Bot"],
         langs: ["TypeScript", "MongoDB"],
-        coolness: 0.3
+        coolness: 0.3,
     },
     {
         name: "SET PWA",
@@ -134,14 +134,15 @@ export const projects: project[] = [
         description: "A Discord bot that prevents spam and assigns roles by verifying users using XBOX/Azure OAuth2",
         tags: ["Discord Bot", "Backend"],
         langs: ["TypeScript", "MongoDB"],
-        coolness: 0.4
+        coolness: 0.4,
     },
     {
         name: "Donation Site",
         description: "A full-stack application allowing users to donate to their favorite creators. It integrates with Discord OAuth, supports PayPal payments, and provides WS & REST API connections",
         tags: ["Backend", "Frontend"],
         langs: ["Go", "HTML/CSS", "PostgreSQL"],
-        coolness: 0.6
+        coolness: 0.6,
+        links: ["https://github.com/ShadiestGoat/donations"]
     },
     {
         name: "Donation API Wrapper",

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { shouldContinueEvent, type AnyInputEvent, inputWrapper } from "./inputUtils";
+	import Project from "./project.svelte";
 	import { tags, tagIndex, projects, type tag, icons } from "./store";
 
     let selectedTags: tag[] = []
@@ -40,6 +41,8 @@
             if (!shouldContinueEvent(e)) {
                 return
             }
+            e.stopPropagation()
+            e.preventDefault()
 
             if (selectedTags.includes(t)) {
                 selectedTags = selectedTags.filter(v => v != t)
@@ -70,7 +73,7 @@
     {#each tags as tagRow}
         <div class="row tags">
             {#each tagRow as tag (tag)}
-                <button on:click={selectTag(tag)} on:keypress={selectTag(tag)} tabindex="0" 
+                <button on:click={selectTag(tag)} on:keydown={selectTag(tag)} tabindex="0" 
                     disabled={tagDisabled(tag, visibleProjects)} 
                     aria-pressed={selectedTags.includes(tag)}
                     class="tag">
@@ -87,22 +90,7 @@
 <div class="row project-wrapper">
     {#key visibleProjects || showAll}
         {#each projects as proj, ind (proj.name)}
-            <div style="{(showAll ? visibleProjects : visibleProjects.slice(0, summaryNumber)).includes(ind) ? "" : "display: none"}" class="project col">
-                <div class="col">
-                    <div class="row heading">
-                        <h2>{proj.name}</h2>
-                    </div>
-                    <div class="row description wrap-words">
-                        <p>{proj.description}</p>
-                    </div>
-                </div>
-
-                <div class="row project-tag-wrapper">
-                    {#each [...proj.tags, ...proj.langs] as tag}
-                        <i title={tag} class={icons[tag]} />
-                    {/each}
-                </div>
-            </div>
+            <Project {proj} show={(showAll ? visibleProjects : visibleProjects.slice(0, summaryNumber)).includes(ind)} />
         {/each}
     {/key}
 </div>
@@ -120,47 +108,6 @@
 
     .center {
         justify-content: center;
-    }
-
-    .project-tag-wrapper {
-        align-self: flex-end;
-        gap: min(1vw, 8px);
-        margin-top: 1vh;
-        
-        i {
-            color: $gray-5;
-            transition: 0.4s;
-            
-            &:hover {
-                color: $gray-2;
-            }
-        }
-
-    }
-
-    .project {
-        width: clamp(350px, 25vw, 45vw);
-        flex: 1 1 auto;
-        border: $frame;
-        padding: max(1vh, 3px) max(1vw, 8px) 0.75vh;
-        border-radius: 8px;
-        background-color: $bg;
-        justify-content: space-between;
-    }
-
-    .heading {
-        padding-bottom: 1vh;
-        margin-bottom: 2vh;
-        border-bottom: $gray-7 solid 1px;
-    }
-
-    .description p {
-        color: $primary;
-    }
-
-    .description, .heading, p {
-        align-content: left;
-        text-align: left;
     }
 
     .project-wrapper {
@@ -186,7 +133,7 @@
         padding: 1vh 2vw;
         border-radius: 8px;
         border: $gray-8 2px solid;
-        transition: 0.7s;
+        transition: 0.5s;
         background: none;
         cursor: pointer;
 
@@ -198,8 +145,16 @@
             font-size: 1rem;
         }
 
+        >* {
+            transition: 0.5s;
+        }
+
         &:disabled {
             cursor: not-allowed;
+
+            >* {
+                color: $gray-6;
+            }
         }
 
         background-color: $bg;
