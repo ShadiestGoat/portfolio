@@ -72,6 +72,7 @@ export const projects: project[] = [
         tags: ["Discord Bot"],
         langs: ["TypeScript"],
         coolness: 0.15,
+        links: ["https://github.com/ShadiestGoat/guess-the-author-message"]
     },
     {
         name: "Noble Services Bot",
@@ -86,6 +87,7 @@ export const projects: project[] = [
         tags: ["Backend", "Frontend"],
         langs: ["TypeScript", "JavaScript", "React", "MongoDB"],
         coolness: 0.5,
+        links: ["https://github.com/ShadiestGoat/node-react-messager-app"]
     },
     {
         name: "Game REST API & Bot",
@@ -93,6 +95,7 @@ export const projects: project[] = [
         tags: ["Backend", "Discord Bot"],
         langs: ["TypeScript", "MongoDB"],
         coolness: 0.3,
+        links: ["https://github.com/ShadiestGoat/Rougelike-REST-API-Closed"]
     },
     {
         name: "SET PWA",
@@ -100,6 +103,7 @@ export const projects: project[] = [
         tags: ["Frontend"],
         langs: ["React", "TypeScript"],
         coolness: 0.35,
+        links: ["https://github.com/ShadiestGoat/set-game-site"]
     },
     {
         name: "Space Node Bot",
@@ -121,17 +125,19 @@ export const projects: project[] = [
         tags: ["Package"],
         langs: ["TypeScript", "MongoDB"],
         coolness: 0.2,
+        links: ["https://github.com/ShadiestGoat/mongosteel"]
     },
     {
         name: "Online Schedule",
         description: "A frontend project developed using TypeScript and React. It provides a Progressive Web App for students to easily check their next class and location using their phones",
         tags: ["Frontend"],
         langs: ["React", "TypeScript"],
-        coolness: 0.35
+        coolness: 0.35,
+        links: ["https://github.com/ShadiestGoat/schedule"]
     },
     {
-        name: "XBox Verification Bot",
-        description: "A Discord bot that prevents spam and assigns roles by verifying users using XBOX/Azure OAuth2",
+        name: "Azure Verification Bot",
+        description: "A Discord bot that prevents spam and assigns roles by verifying users using Azure OAuth2",
         tags: ["Discord Bot", "Backend"],
         langs: ["TypeScript", "MongoDB"],
         coolness: 0.4,
@@ -149,28 +155,32 @@ export const projects: project[] = [
         description: "A Golang package that wraps the API of the Donation Site, enabling support for WS & REST endpoints",
         tags: ["Package"],
         langs: ["Go"],
-        coolness: 0.4
+        coolness: 0.4,
+        links: ["https://github.com/ShadiestGoat/donation-api-wrapper"]
     },
     {
         name: "Donation Bot",
         description: "A Discord bot that manages roles (persistent and monthly) and relays donation messages to a creator's Discord server",
         tags: ["Discord Bot"],
         langs: ["Go"],
-        coolness: 0.35
+        coolness: 0.35,
+        links: ["https://github.com/ShadiestGoat/donationBot"]
     },
     {
         name: "PronounDB Wrapper",
         description: "a Golang package that simplifies the usage of the PronounDB API and allows developers to easily use dynamic yet correct grammar",
         tags: ["Package"],
         langs: ["Go"],
-        coolness: 0.3
+        coolness: 0.3,
+        links: ["https://github.com/ShadiestGoat/pronoundb"]
     },
     {
         name: "Twitch Chat Relay",
         description: "A combination of backend and frontend implementations. It relays Twitch chat, offers markdown support, includes a custom in-memory database, and integrates with PronounDB. It is implemented using Go, Svelte, and TypeScript",
         tags: ["Backend", "Frontend"],
         langs: ["Go", "Svelte", "TypeScript"],
-        coolness: 0.6
+        coolness: 0.6,
+        links: ["https://github.com/ShadiestGoat/twitch-chat-frontend", "https://github.com/ShadiestGoat/twitch-chat-backend"]
     },
     {
         name: "Logger Package",
@@ -178,6 +188,7 @@ export const projects: project[] = [
         tags: ["Package"],
         langs: ["Go"],
         coolness: 0.4,
+        links: ["https://github.com/ShadiestGoat/log"]
     },
     {
         name: "Initialization & Dependency Manager",
@@ -185,20 +196,22 @@ export const projects: project[] = [
         tags: ["Package"],
         langs: ["Go"],
         coolness: 0.6,
+        links: ["https://github.com/ShadiestGoat/initutils"]
     },
     {
         name: "Forum",
         description: "A fullstack forum application with real-time user suggestions for staff, moderation features, an appealing UI, and an emphasis on anonymity. Has a custom request cache management",
         tags: ["Backend", "Frontend"],
         langs: ["Go", "Svelte", "TypeScript", "PostgreSQL"],
-        coolness: 0.8
+        coolness: 0.8,
     },
     {
         name: "Discord Chat Exporter",
         description: "Allows users to fully (or partially) export their Discord chat while disguising itself as a normal user's activities. It emphasizes customization, theming and security. This project required reverse engineering the Discord API",
         coolness: 0.6,
         langs: ["Go", "HTML/CSS"],
-        tags: ["CLI/TUI"]
+        tags: ["CLI/TUI"],
+        links: ["https://github.com/ShadiestGoat/DiscordChatExporter"]
     }
 ]
 
