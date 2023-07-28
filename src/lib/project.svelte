@@ -75,12 +75,12 @@
             color: $gray-5;
             transition: 0.4s;
             
-            &:hover {
+            &:hover, &:focus-visible {
                 color: $gray-2;
             }
         }
 
-        a i:hover {
+        a i:hover, i:focus-visible {
             color: $info;
         }
     }

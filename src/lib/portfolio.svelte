@@ -161,7 +161,7 @@
         
         &:not(:disabled) {
 
-            &:hover, &[aria-pressed="true"] {
+            &:hover, &[aria-pressed="true"], &:focus-visible {
                 transform: scale(1.05);
                 background-color: $purple-7;
             }
