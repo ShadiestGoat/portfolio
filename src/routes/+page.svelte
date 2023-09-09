@@ -154,7 +154,7 @@
         <div class="row contact-wrapper">
             <ContactIcon icon="fa-regular fa-envelope" content="shady@shadygoat.eu" link="mailto:shady@shadygoat.eu"  />
             <ContactIcon icon="fa-brands fa-linkedin"  content="Lucy Dryaeva" link="https://www.linkedin.com/in/lucy-dryaeva-70457b274"  /> 
-            <ContactIcon icon="fa-brands fa-discord"   content="Shady Goat#2893" />
+            <ContactIcon icon="fa-brands fa-discord"   content="@shadygoat" />
             <ContactIcon icon="fa-brands fa-github"    content="ShadiestGoat" link="https://github.com/ShadiestGoat"  /> 
         </div>
     </div>
