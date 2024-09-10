@@ -3,7 +3,7 @@ import { error, type ServerLoad } from '@sveltejs/kit';
 import { PASSWORD } from '$env/static/private';
 
 export const load = (async ({ fetch }) => {
-    const req = new Request("https://langs.shadygoat.eu", {
+    const req = new Request("https://lang-cache.lucydryaeva.com", {
         headers: {
             Authentication: PASSWORD,
         }
