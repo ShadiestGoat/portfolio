@@ -93,7 +93,7 @@
         max += waitStep
         waitStep += 0.00003
 
-        setTimeout(addToMax, waitTime)
+        if (max < 1) setTimeout(addToMax, waitTime)
     }
 
     let entered = false
