@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { shouldContinueEvent, type AnyInputEvent, inputWrapper } from "./inputUtils";
+    import { shouldContinueEvent, type AnyInputEvent, mkInputHandler } from "./inputUtils";
 	import Project from "./project.svelte";
 	import { tags, tagIndex, projects, type tag, icons } from "./store";
 
@@ -56,13 +56,8 @@
 
     let showAll = false
 
-    function onShowAll(e: AnyInputEvent) {
-        if (!shouldContinueEvent(e)) {
-            return
-        }
-
-        showAll = !showAll
-    }
+    const onShowAll = mkInputHandler(() => showAll = !showAll)
+    const onSeeMore = mkInputHandler(() => showAll = true)
 </script>
 
 <div class="row center">
@@ -92,6 +87,12 @@
         {#each projects as proj, ind (proj.name)}
             <Project {proj} show={(showAll ? visibleProjects : visibleProjects.slice(0, summaryNumber)).includes(ind)} />
         {/each}
+
+        {#if !showAll && visibleProjects.length > summaryNumber}
+            <div class="row center" style="width: 100%">
+                <button class="show-all see-more hover-border" on:click={onSeeMore} on:keypress={onSeeMore}>See More</button>
+            </div>
+        {/if}
     {/key}
 </div>
 
@@ -104,6 +105,10 @@
         width: max-content;
         font-size: 1.15rem;
         margin-bottom: 2.5vh;
+    }
+
+    .see-more {
+        font-size: 1.5rem;
     }
 
     .center {
