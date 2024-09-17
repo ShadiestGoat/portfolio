@@ -1,6 +1,6 @@
-export type langs = {
-    frontend: langShares,
-    backend: langShares,
+export type Langs = {
+    frontend: LangShares,
+    backend: LangShares,
 }
 
-export type langShares = Record<string, number>
+export type LangShares = Record<string, number>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 	import Btn from "$lib/btn.svelte";
-	import type { langs, langShares } from "$lib/draw";
+	import type { Langs, LangShares } from "$lib/draw";
 	import Pie from "$lib/pie.svelte";
 	import { onMount } from "svelte";
     import Typing from "../lib/typing.svelte";
@@ -54,21 +54,28 @@
         Others:       "#aeafd7",
     }
 
-    function pie(l:langShares):[string, number, string][] {
+    function pie(l:LangShares):[string, number, string][] {
         const items = Object.keys(l).sort().filter(k => colors[k] && l[k] >= 0.07 ? true : false)
-        
+
         let total = 0
         items.forEach(v => {
             total += l[v]
         })
 
-        const parsed = items.map(k => [k, l[k], colors[k]]) as [string, number, string][]
-        parsed.push(["Others", 1-total, colors["Others"]])
+        let divTotal = total
+        if (total < 1) {
+            divTotal = 1
+        }
+
+        const parsed = items.map(k => [k, l[k]/divTotal, colors[k]]) as [string, number, string][]
+        if (total < 1) {
+            parsed.push(["Others", 1-total, colors["Others"]])
+        }
 
         return parsed
     }
 
-    function getLangs(l:langs) {
+    function getLangs(l:Langs) {
         const allLangs = Object.keys({...l.frontend, ...l.backend})
         const ogL = allLangs.length
 

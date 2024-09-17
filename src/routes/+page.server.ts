@@ -1,4 +1,4 @@
-import type { langs } from '$lib/draw';
+import type { Langs } from '$lib/draw';
 import { error, type ServerLoad } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
@@ -9,7 +9,7 @@ export const load = (async ({ fetch }) => {
         }
     })
 
-    let respB: langs
+    let respB: Langs
 
     try {
         const resp = await fetch(req)
