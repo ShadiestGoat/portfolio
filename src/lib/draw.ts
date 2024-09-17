@@ -4,3 +4,10 @@ export type Langs = {
 }
 
 export type LangShares = Record<string, number>
+
+export type Share = {
+    title: string
+    share: number
+    bg: string,
+    fg: string
+}

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { page } from "$app/stores";
 	import Btn from "$lib/btn.svelte";
-	import type { Langs, LangShares } from "$lib/draw";
+	import type { Langs, LangShares, Share } from "$lib/draw";
 	import Pie from "$lib/pie.svelte";
 	import { onMount } from "svelte";
     import Typing from "../lib/typing.svelte";
@@ -40,21 +39,24 @@
 
     const langs = data.langs
 
-    const colors:Record<string, string> = {
-        Go:           "#69D7E2",
-        TypeScript:   "#007BCD",
-        Python:       "#336B9B",
-        JavaScript:   "#F7E018",
-        CSS:          "#199DDA",
-        EJS:          "#BAC973",
-        HTML:         "#F16528",
-        "React (JS)": "#4AD5FF",
-        "React (TS)": "#1C567B",
-        Svelte:       "#F73C00",
-        Others:       "#aeafd7",
+    /**
+     * Known lang -> [bg color, text color]
+     */
+    const colors:Record<string, [string, string]> = {
+        Go:           ["#69D7E2", "#271052"],
+        TypeScript:   ["#007BCD", "#fff"],
+        Python:       ["#336B9B", "#fff"],
+        JavaScript:   ["#F7E018", "#271052"],
+        CSS:          ["#199DDA", "#271052"],
+        EJS:          ["#BAC973", "#fff"],
+        HTML:         ["#F16528", "#fff"],
+        "React (JS)": ["#4AD5FF", "#271052"],
+        "React (TS)": ["#1C567B", "#fff"],
+        Svelte:       ["#F73C00", "#fff"],
+        Others:       ["#aeafd7", "#271052"],
     }
 
-    function pie(l:LangShares):[string, number, string][] {
+    function pie(l:LangShares): Share[] {
         const items = Object.keys(l).sort().filter(k => colors[k] && l[k] >= 0.07 ? true : false)
 
         let total = 0
@@ -67,9 +69,21 @@
             divTotal = 1
         }
 
-        const parsed = items.map(k => [k, l[k]/divTotal, colors[k]]) as [string, number, string][]
+        const parsed: Share[] = items.map(
+            k => ({
+                title: k,
+                share: l[k]/divTotal,
+                bg: colors[k][0],
+                fg: colors[k][1],
+            })
+        )
         if (total < 1) {
-            parsed.push(["Others", 1-total, colors["Others"]])
+            parsed.push({
+                title: 'Others',
+                share: 1 - total,
+                bg: colors['Others'][0],
+                fg: colors['Others'][1],
+            })
         }
 
         return parsed
@@ -137,7 +151,7 @@
                 }} on:mouseleave={() => {
                     hoveredTag = ""
                 }}>
-                    <span class="tag-c" style="--c: {colors[lang]}" /> {lang}
+                    <span class="tag-c" style="--c: {colors[lang][0]}" /> {lang}
                 </h3>
             {/each}
         </div>

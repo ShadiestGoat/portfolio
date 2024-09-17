@@ -1,34 +1,36 @@
 <script lang="ts">
     import { inview } from 'svelte-inview';
+	import type { Share } from './draw';
     
-    /**
-     * title, share % (0-1), color (inclue #)
-    */
-    export let shares:[string, number, string][];
-
-    const strokeWidth = 50
-    const radius = 128
-    const trueRad = 100
-    const borderPerc = 0.006
-
-    export let selectedTag = ""
-
-    $: halfStroke     = strokeWidth/2
-    $: radiusNoStroke = radius - halfStroke
-    $: usedShares = function (shares:[string, number, string, string?][], max:number):{
-        color: string, 
+    type PieSlice = {
+        bg: string,
+        fg: string,
         name: string, 
         arc: string, 
-        share:number,
-        start: number,
-        end: number,
-    }[] {
+        share: number,
+        mid: number
+    }
+
+    /**
+     * title, share % (0-1), color (include #)
+    */
+    export let shares: Share[];
+    export let selectedTag = ""
+
+    const strokeWidth = 50
+    const outerRad = 128
+    const innerRad = 100
+    const borderPerc = 0.009
+    
+    const radiusNoStroke = outerRad - strokeWidth/2
+
+    $: usedShares = function (shares: Share[], max:number):PieSlice[] {
         let tmp = 0
         const fac = 1 - shares.length * borderPerc
 
-        const raw = shares.map(v => {
+        const raw = shares.map(({ title, bg, fg, share }): PieSlice | undefined => {
             const s = tmp
-            tmp += fac * v[1]
+            tmp += fac * share
             let e = tmp
 
             tmp += borderPerc
@@ -40,36 +42,38 @@
                 e = 0
             }
 
-            if (isNaN(e)) {
-                console.log(v)
-            }
-
             return {
-                color: v[2],
-                name: v[0],
-                share: v[1],
-                start: s,
-                end:   e,
+                name: title,
+                share,
+                fg,
+                bg,
                 arc: arc(s, e),
+                mid: mid(s, e)
             }
         })
 
-        // @ts-ignore
-        return raw.filter(v => v !== undefined)
+        return raw.filter(v => !!v)
     }(shares, max)
 
+    function xFactor(perc: number): number {
+        return Math.cos(2 * Math.PI * perc)
+    }
+
+    function yFactor(perc: number): number {
+        return -Math.sin(2 * Math.PI * perc)
+    }
+
     function x(perc: number): number {
-        return radius + radiusNoStroke*Math.sin(2*Math.PI*perc)
+        return outerRad + radiusNoStroke * xFactor(perc)
     }
 
     function y(perc: number): number {
-        return radius + radiusNoStroke*Math.cos(2*Math.PI*(perc-0.5))
+        return outerRad + radiusNoStroke * yFactor(perc)
     }
 
     function pos(progress:number):[number, number] {      
         return [x(progress), y(progress)]
     }
-
 
     let max = 0
 
@@ -82,8 +86,8 @@
         }
 
         return `M${pos(start).join(" ")}${
-            (end - start) >= 0.5 ? ` A${radiusNoStroke},${radiusNoStroke} 0 0 1 ${pos(start + 0.5).join(" ")}` : ''
-        } A${radiusNoStroke},${radiusNoStroke} 0 0 1 ${pos(end).join(" ")}`
+            (end - start) >= 0.5 ? ` A${radiusNoStroke},${radiusNoStroke} 0 0 0 ${pos(start + 0.5).join(" ")}` : ''
+        } A${radiusNoStroke},${radiusNoStroke} 0 0 0 ${pos(end).join(" ")}`
     }
 
     const waitTime = 1
@@ -98,14 +102,20 @@
 
     let entered = false
 
-    function show(n: string): boolean {
-        return selectedTag == "" || selectedTag == n
-    }
-
     function mid(start: number, end: number): number {
         return start + (end - start)/2
     }
 </script>
+
+<style lang="scss">
+    g {
+        transform: scale(var(--scale));
+        transition: transform 0.5s;
+    }
+    path, text {
+        transition: transform 0.5s, filter 0.5s;
+    }
+</style>
 
 <div use:inview={{}}
     on:inview_enter={() => {
@@ -115,28 +125,30 @@
     }}>
 
     <svg viewBox="0 0 256 256">
-        <defs>
-            <radialGradient id="Gradient">
-                <stop offset="0.5" stop-color="white" />
-                <stop offset="0.9" stop-color="black" />
-            </radialGradient>
-            <mask id="glow">
-                <rect width="100%" height="100%" fill="url(#Gradient)" />
-            </mask>
-        </defs>
-        
-        <g mask="url(#glow)">
+        <g transform="translate({outerRad-innerRad} {outerRad-innerRad}), scale({innerRad/outerRad})">
             {#each usedShares as s (s.name)}
-                <path visibility={show(s.name) ? "visible" : "hidden"} stroke-width="{strokeWidth}" fill="none" stroke={s.color} d={s.arc}></path>
-            {/each}
-        </g>
-
-        <g transform="translate({radius-trueRad} {radius-trueRad}), scale({trueRad/radius})">
-            {#each usedShares as s (s.name)}
-                <path filter={show(s.name) ? "" : "saturate(0.3)"} stroke-width="{strokeWidth}" fill="none" stroke={s.color} d={s.arc}></path>
-                {#if max > mid(s.start, s.end) && s.share > 0.05}
-                    <text font-size="0.7rem" fill="white" text-anchor="middle" x={x(mid(s.start, s.end))} y={y(mid(s.start, s.end))}>({Math.round(s.share*100)}%)</text>
+            <g
+                transform-origin="128 128"
+                style="--scale: {selectedTag == s.name ? 1.2 : 1}"
+            >
+                <path
+                    filter={(!selectedTag || selectedTag == s.name) ? "" : "saturate(0.3)"}
+                    stroke-width={strokeWidth}
+                    stroke={s.bg}
+                    d={s.arc}
+                    fill="none"
+                ></path>
+                {#if max > s.mid && s.share > 0.05}
+                    <text
+                        font-size="0.7rem"
+                        transform-origin="128 128"
+                        fill="{ s.fg }"
+                        text-anchor="middle"
+                        font-weight="900"
+                        x={x(s.mid)} y={y(s.mid)}
+                    >({Math.round(s.share*100)}%)</text>
                 {/if}
+            </g>
             {/each}
         </g>
     </svg>
