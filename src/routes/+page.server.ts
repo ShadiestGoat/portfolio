@@ -1,11 +1,11 @@
 import type { langs } from '$lib/draw';
 import { error, type ServerLoad } from '@sveltejs/kit';
-import { PASSWORD } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 export const load = (async ({ fetch }) => {
     const req = new Request("https://lang-cache.lucydryaeva.com", {
         headers: {
-            Authentication: PASSWORD,
+            Authentication: env.PASSWORD,
         }
     })
 
