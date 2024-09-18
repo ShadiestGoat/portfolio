@@ -7,6 +7,7 @@
 	import type { PageData } from "./$types";
 	import Portfolio from "$lib/portfolio.svelte";
 	import ContactIcon from "$lib/contactIcon.svelte";
+	import { writable } from "svelte/store";
 
     const langList = [
         "FullStack",
@@ -104,7 +105,7 @@
     /* all the unique languages */
     $: allLangs = getLangs(langs)
     
-    let hoveredTag = ""
+    let hoveredTag = writable<string>("")
 </script>
 
 <section id="intro">
@@ -144,10 +145,10 @@
         </div>
         <div class="row tag-wrapper">
             {#each allLangs as lang}
-                <h3 class="tag {(hoveredTag == "" || hoveredTag == lang) ? "" : "unselected"}" on:focus on:mouseover={() => {
-                    hoveredTag = lang
+                <h3 class="tag {(!$hoveredTag || $hoveredTag == lang) ? "" : "unselected"}" on:focus on:mouseover={() => {
+                    $hoveredTag = lang
                 }} on:mouseleave={() => {
-                    hoveredTag = ""
+                    $hoveredTag = ""
                 }}>
                     <span class="tag-c" style="--c: {colors[lang][0]}" /> {lang}
                 </h3>

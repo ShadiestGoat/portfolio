@@ -1,6 +1,7 @@
 <script lang="ts">
     import { inview } from 'svelte-inview';
 	import type { Share } from './draw';
+	import type { Writable } from 'svelte/store';
     
     type PieSlice = {
         bg: string,
@@ -15,7 +16,7 @@
      * title, share % (0-1), color (include #)
     */
     export let shares: Share[];
-    export let selectedTag = ""
+    export let selectedTag: Writable<string>
 
     const strokeWidth = 50
     const outerRad = 128
@@ -105,6 +106,15 @@
     function mid(start: number, end: number): number {
         return start + (end - start)/2
     }
+
+    function onFocus(n: string) {
+        return () => {
+            $selectedTag = n
+        }
+    }
+    function onBlur() {
+        $selectedTag = ""
+    }
 </script>
 
 <style lang="scss">
@@ -114,6 +124,10 @@
     }
     path, text {
         transition: transform 0.5s, filter 0.5s;
+    }
+
+    text {
+        pointer-events: none;
     }
 </style>
 
@@ -129,14 +143,18 @@
             {#each usedShares as s (s.name)}
             <g
                 transform-origin="128 128"
-                style="--scale: {selectedTag == s.name ? 1.2 : 1}"
+                style="--scale: {$selectedTag == s.name ? 1.2 : 1}"
             >
                 <path
-                    filter={(!selectedTag || selectedTag == s.name) ? "" : "saturate(0.3)"}
+                    filter={(!$selectedTag || $selectedTag == s.name) ? "" : "saturate(0.3)"}
                     stroke-width={strokeWidth}
                     stroke={s.bg}
                     d={s.arc}
                     fill="none"
+                    role="presentation"
+                    tabindex="-1"
+                    on:mouseover={onFocus(s.name)} on:focus={onFocus(s.name)}
+                    on:mouseout={onBlur} on:blur={onBlur}
                 ></path>
                 {#if max > s.mid && s.share > 0.05}
                     <text
