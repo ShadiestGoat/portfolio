@@ -3,7 +3,7 @@ import { error, type ServerLoad } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
 export const load = (async ({ fetch }) => {
-    const req = new Request("https://lang-cache.lucydryaeva.com", {
+    const req = new Request(env.LANGS_LOC ?? "https://lang-cache.lucydryaeva.com", {
         headers: {
             Authentication: env.PASSWORD,
         }
