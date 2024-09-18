@@ -3,7 +3,7 @@ export type project = {
     langs:       language[]
     name:        string,
     description: string,
-    links?:       string[],
+    links?:      string[],
     coolness:    number,
 }
 
@@ -54,7 +54,7 @@ export const tags:tag[][] = [
     ]
 ]
 
-//  TODO: Add valentines
+// TODO: Add valentines
 // TODO: Add dome bot
 // TODO: Add Shady Bot
 // TODO: Add links
