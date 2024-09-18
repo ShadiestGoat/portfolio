@@ -146,6 +146,8 @@
         align-items: center;
         gap: 0.5vw;
 
+        background-color: $bg;
+
         i {
             font-size: 1rem;
         }
@@ -161,8 +163,6 @@
                 color: $gray-6;
             }
         }
-
-        background-color: $bg;
         
         &:not(:disabled) {
 

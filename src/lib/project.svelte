@@ -47,7 +47,7 @@
         background-color: $bg;
         justify-content: space-between;
     }
-    
+
     .heading {
         padding-bottom: 1vh;
         margin-bottom: 2vh;
@@ -69,8 +69,7 @@
     .tag-wrapper {
         align-self: flex-end;
         gap: min(1vw, 8px);
-        
-        
+
         i {
             color: $gray-5;
             transition: 0.4s;

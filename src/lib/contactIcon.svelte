@@ -15,7 +15,7 @@
     }
 </script>
 
-<svelte:element on:click={onClick} on:keypress={onClick} tabindex="0" class="contact col hover-border" this={link ? "a" : "div"} href={link} target="_blank" referrerpolicy="no-referrer">
+<svelte:element role="button" on:click={onClick} on:keypress={onClick} tabindex="0" class="contact col hover-border" this={link ? "a" : "div"} href={link} target="_blank" referrerpolicy="no-referrer">
     <div class="ico-wrapper">
         <i class="{icon}"></i>
     </div>
