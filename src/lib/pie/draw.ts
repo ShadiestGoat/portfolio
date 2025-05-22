@@ -11,3 +11,15 @@ export type Share = {
     bg: string,
     fg: string
 }
+
+export type PieSlice = {
+    bg: string,
+    fg: string,
+    name: string, 
+    arc: string, 
+    share: number,
+    mid: number
+}
+
+export const strokeWidth = 50
+export const scaleFactor = 1.18

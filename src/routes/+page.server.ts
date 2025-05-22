@@ -1,4 +1,4 @@
-import type { Langs } from '$lib/draw';
+import type { Langs } from '$lib/pie/draw';
 import { error, type ServerLoad } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
